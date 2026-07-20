@@ -11,7 +11,7 @@
 Base URL: https://flugge00.github.io/hildings-hantverk-hemsida/
 Nav: Katalog (/), Bilder (/gallery/), Kontakt (/contact/)
 Founders: Molly Hilding Södergren, Towe Södergren Hilding
-Email: hildingshantverk@gmail.com  Tel: +46 70 123 45 67  © 2025
+Email: hildingshantverk@gmail.com  Tel: +46 70 123 45 67  © 2026
 
 Products (images/*Product.jpg):
 - Hög Femma vit 325kr (5hogProduct)
