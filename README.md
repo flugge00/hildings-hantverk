@@ -15,7 +15,7 @@ hildings-hantverk/
 ├── css/                # styles.css (shared) + intro.css (intro scene)
 ├── js/                 # data.js, intro.js, main.js
 ├── images/             # products, gallery/, contact/
-└── Logos/
+└── logos/
     ├── Logga_HildingsHantverk_200x200mm.svg
     └── variations/
         ├── gallery.html   # Logo variations preview page
@@ -54,16 +54,16 @@ Install the **Live Server** extension, right-click `index.html`, and choose
 The logo variations preview lives at:
 
 ```
-Logos/variations/gallery.html
+logos/variations/gallery.html
 ```
 
 With a local server running (see above) open:
 
-- <http://localhost:5533/Logos/variations/gallery.html>
+- <http://localhost:5533/logos/variations/gallery.html>
 
-Or navigate manually: from the site root go to **Logos → variations →
+Or navigate manually: from the site root go to **logos → variations →
 gallery.html**. Once deployed, the same relative path works:
-`https://<your-site>/Logos/variations/gallery.html`.
+`https://<your-site>/logos/variations/gallery.html`.
 
 ## Deploy
 
@@ -96,4 +96,4 @@ with GitLab Pages. To host on GitLab:
    `https://<user>.gitlab.io/<repo>/`).
 
 The logo gallery is then available at
-`https://<user>.gitlab.io/<repo>/Logos/variations/gallery.html`.
+`https://<user>.gitlab.io/<repo>/logos/variations/gallery.html`.

@@ -155,8 +155,8 @@
   height: clamp(4.4rem, 10vw, 6.8rem);
   margin: 0 auto 1.3rem;
   background: var(--c-gold);
-  -webkit-mask: url("../Logos/variations/logo-only.svg") no-repeat center / contain;
-          mask: url("../Logos/variations/logo-only.svg") no-repeat center / contain;
+  -webkit-mask: url("../logos/variations/logo-only.svg") no-repeat center / contain;
+          mask: url("../logos/variations/logo-only.svg") no-repeat center / contain;
   filter: drop-shadow(0 0 18px rgba(245, 176, 65, 0.5));
   opacity: 0;
 }

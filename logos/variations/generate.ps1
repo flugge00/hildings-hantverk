@@ -1,9 +1,9 @@
 # Generates all Hildings Hantverk logo variations as self-contained SVG files.
-# Run once from anywhere:  pwsh -File Logos/variations/generate.ps1
+# Run once from anywhere:  pwsh -File logos/variations/generate.ps1
 # Re-run after changing the source logo to regenerate every variation.
 
 $ErrorActionPreference = 'Stop'
-$logosDir = Split-Path -Parent $PSScriptRoot          # ...\Logos
+$logosDir = Split-Path -Parent $PSScriptRoot          # ...\logos
 $srcPath  = Join-Path $logosDir 'Logga_HildingsHantverk_200x200mm.svg'
 $outDir   = $PSScriptRoot
 $src     = Get-Content -Raw -LiteralPath $srcPath

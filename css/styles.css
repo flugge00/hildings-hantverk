@@ -139,8 +139,8 @@ p { margin: 0 0 1.1em; }
   height: 2.2rem;
   flex: none;
   background: var(--c-gold);
-  -webkit-mask: url("../Logos/variations/logo-only.svg") no-repeat center / contain;
-          mask: url("../Logos/variations/logo-only.svg") no-repeat center / contain;
+  -webkit-mask: url("../logos/variations/logo-only.svg") no-repeat center / contain;
+          mask: url("../logos/variations/logo-only.svg") no-repeat center / contain;
   filter: drop-shadow(0 0 7px rgba(245, 176, 65, 0.55));
   transition: filter 0.3s var(--ease-soft), background 0.3s var(--ease-soft);
 }
