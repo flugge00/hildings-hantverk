@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hildings Hantverk — Handgjorda ljus</title>
+  <meta name="description" content="Hildings Hantverk — handdoppade och handgjorda ljus. Sexa sax, kronor, spiror, sockertoppar och snöbollar." />
+
+  <link rel="icon" href="Logos/variations/badge-round-green.svg" type="image/svg+xml" />
+  <link rel="icon" href="Logos/variations/logo-only.svg" sizes="any" />
+  <link rel="apple-touch-icon" href="Logos/variations/app-icon-dark.svg" />
+  <meta name="theme-color" content="#14100c" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+</head>
+<body class="intro-locked">
+
+  <!-- =========================================================
+       Shared SVG defs: flame gradients + waver filter
+       ========================================================= -->
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <defs>
+      <linearGradient id="flameOuter" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%"  stop-color="#ffab3d" />
+        <stop offset="35%" stop-color="#ff7b1a" />
+        <stop offset="80%" stop-color="#e23a10" />
+        <stop offset="100%" stop-color="#b8250a" stop-opacity="0" />
+      </linearGradient>
+      <linearGradient id="flameMid" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%"  stop-color="#ffe08a" />
+        <stop offset="45%" stop-color="#ffc23d" />
+        <stop offset="100%" stop-color="#ff8a1e" stop-opacity="0.2" />
+      </linearGradient>
+      <linearGradient id="flameCore" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%"  stop-color="#ffffff" />
+        <stop offset="55%" stop-color="#fff3b0" />
+        <stop offset="100%" stop-color="#ffe07a" stop-opacity="0" />
+      </linearGradient>
+      <radialGradient id="flameBase" cx="0.5" cy="0.3" r="0.7">
+        <stop offset="0%"  stop-color="#9ec5ff" />
+        <stop offset="60%" stop-color="#6ea8ff" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="#6ea8ff" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="glowGrad" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0%"  stop-color="#ffcf7a" stop-opacity="0.9" />
+        <stop offset="40%" stop-color="#f5a742" stop-opacity="0.45" />
+        <stop offset="100%" stop-color="#e67e22" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="waxGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#d6c4a2" />
+        <stop offset="12%"  stop-color="#fbf4e6" />
+        <stop offset="30%"  stop-color="#f2e8d3" />
+        <stop offset="60%"  stop-color="#ddceb0" />
+        <stop offset="85%"  stop-color="#ccb892" />
+        <stop offset="100%" stop-color="#b6a079" />
+      </linearGradient>
+      <radialGradient id="waxTop" cx="0.5" cy="0.4" r="0.6">
+        <stop offset="0%" stop-color="#fff8ea" />
+        <stop offset="100%" stop-color="#dccaa8" />
+      </radialGradient>
+      <!-- soft ambient shadow where the candle sinks into the holder -->
+      <linearGradient id="waxBaseShade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#3a2812" stop-opacity="0" />
+        <stop offset="55%"  stop-color="#3a2812" stop-opacity="0.06" />
+        <stop offset="100%" stop-color="#33240f" stop-opacity="0.32" />
+      </linearGradient>
+      <!-- gentle top-light so the crown near the wick glows a touch warmer -->
+      <radialGradient id="waxCrown" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0%"  stop-color="#fff6e4" stop-opacity="0.7" />
+        <stop offset="100%" stop-color="#fff6e4" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="stickGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"  stop-color="#8a5a2b" />
+        <stop offset="50%" stop-color="#d9a961" />
+        <stop offset="100%" stop-color="#8a5a2b" />
+      </linearGradient>
+      <linearGradient id="holderGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#6b5636" />
+        <stop offset="26%"  stop-color="#b79a63" />
+        <stop offset="50%"  stop-color="#efd9a3" />
+        <stop offset="74%"  stop-color="#b79a63" />
+        <stop offset="100%" stop-color="#6b5636" />
+      </linearGradient>
+
+      <!-- Organic edge waver -->
+      <filter id="flameWaver" x="-80%" y="-80%" width="260%" height="260%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018 0.045" numOctaves="2" seed="4" result="noise">
+          <animate attributeName="baseFrequency" dur="7s" values="0.018 0.045;0.024 0.062;0.02 0.05;0.018 0.045" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+
+      <!-- Soft luminous aura so the flame reads as a light source -->
+      <filter id="softGlow" x="-140%" y="-140%" width="380%" height="380%">
+        <feGaussianBlur stdDeviation="5" />
+      </filter>
+
+      <!-- fine matte grain across the wax -->
+      <filter id="waxGrain" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch" result="n" />
+        <feColorMatrix in="n" type="saturate" values="0" />
+      </filter>
+      <!-- larger, softer mottling from hand-dipping -->
+      <filter id="waxMottle" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.021 0.05" numOctaves="2" seed="11" stitchTiles="stitch" result="n" />
+        <feColorMatrix in="n" type="saturate" values="0" />
+      </filter>
+
+      <!-- keeps every bit of surface texture inside the candle silhouette -->
+      <clipPath id="candleClip">
+        <path d="M190 251 C188 292 189 330 186 372 C184 398 180 424 182 452 C182 463 189 471 200 472 C211 471 218 463 218 452 C220 424 214 398 214 372 C211 330 212 292 210 251 C207 245 193 245 190 251 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- =========================================================
+       Header
+       ========================================================= -->
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a class="brand-mark" href="index.html"><span class="brand-mark__logo" aria-hidden="true"></span> Hildings Hantverk</a>
+      <button class="nav-toggle" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="nav" id="site-nav">
+        <a href="index.html" aria-current="page">Hem</a>
+        <a href="katalog.html">Katalog</a>
+        <a href="bilder.html">Bilder</a>
+        <a href="kontakt.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       Fixed candlelight stage
+       ========================================================= -->
+  <div class="stage" id="stage">
+    <div class="stage__wash"></div>
+    <div class="embers" id="embers"></div>
+
+    <div class="scene">
+      <svg class="scene__svg" viewBox="0 0 400 520" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+
+        <!-- soft candlelight halo behind the flame -->
+        <ellipse class="light-halo" id="lightHalo" cx="200" cy="250" rx="150" ry="150" fill="url(#glowGrad)" opacity="0" />
+
+        <!-- striker strip -->
+        <rect id="striker" x="30" y="392" width="150" height="12" rx="6" fill="#2a1c10" opacity="0" />
+
+        <!-- ===== Candle holder (back — sits behind the candle) ===== -->
+        <g id="holder">
+          <!-- foot / base plate -->
+          <ellipse cx="200" cy="493" rx="37" ry="7.5" fill="url(#holderGrad)" />
+          <ellipse cx="200" cy="491" rx="37" ry="6.5" fill="#f2e0b4" opacity="0.4" />
+          <!-- small knop between plate and cup -->
+          <path d="M186 480 Q200 486 214 480 Q212 489 200 490 Q188 489 186 480 Z" fill="url(#holderGrad)" />
+          <!-- socket cup silhouette -->
+          <path d="M177 456 Q200 449 223 456 L219 478 Q200 484 181 478 Z" fill="url(#holderGrad)" />
+        </g>
+
+        <!-- ===== Candle (hand-dipped / "stöpt" taper) ===== -->
+        <g id="candle">
+          <!-- body -->
+          <path d="M190 251 C188 292 189 330 186 372 C184 398 180 424 182 452 C182 463 189 471 200 472 C211 471 218 463 218 452 C220 424 214 398 214 372 C211 330 212 292 210 251 C207 245 193 245 190 251 Z" fill="url(#waxGrad)" />
+
+          <!-- everything below stays within the wax silhouette -->
+          <g clip-path="url(#candleClip)">
+            <!-- hand-dipped mottling + fine matte grain -->
+            <rect x="176" y="244" width="48" height="234" filter="url(#waxMottle)" opacity="0.10" style="mix-blend-mode:soft-light" />
+            <rect x="176" y="244" width="48" height="234" filter="url(#waxGrain)" opacity="0.06" style="mix-blend-mode:overlay" />
+
+            <!-- form: warm crown near the wick, cool shadow toward the base -->
+            <rect x="176" y="246" width="48" height="60" fill="url(#waxCrown)" />
+            <rect x="176" y="416" width="48" height="62" fill="url(#waxBaseShade)" />
+
+            <!-- wax rivulets running ON the surface (raised, catching light) -->
+            <g>
+              <path d="M205 268 C203 298 203 320 205 331 C206 337 209 337 210 331 C212 320 209 298 207 268 C206.4 264 205.4 264 205 268 Z" fill="#fdf6e7" opacity="0.5" />
+              <path d="M205 272 C203.6 298 203.6 316 205 328" stroke="#fffdf6" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.55" />
+              <path d="M210 274 C211 298 211 316 210 328" stroke="#c8b48d" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.35" />
+
+              <path d="M192 306 C190 338 190 360 192 371 C193 377 196 377 197 370 C199 358 195 336 194 306 C193.4 302 192.5 302 192 306 Z" fill="#fdf6e7" opacity="0.46" />
+              <path d="M192 310 C190.6 338 190.6 356 192 367" stroke="#fffdf6" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="0.5" />
+
+              <path d="M208 356 C206.5 384 206.5 400 208 409 C209 414 211.5 414 212 408 C213.5 398 210 378 210 356 C209.4 353 208.5 353 208 356 Z" fill="#fdf6e7" opacity="0.42" />
+              <path d="M208 360 C206.8 384 206.8 398 208 406" stroke="#fffdf6" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="0.45" />
+            </g>
+
+            <!-- soft length-wise highlight (the lit face of the cylinder) -->
+            <path d="M195 262 C192 322 190 404 193 454" stroke="#fff8ea" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.34" />
+            <!-- faint warm reflected light along the shadow edge -->
+            <path d="M215 300 C216 358 215 418 213 452" stroke="#e8d4ac" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.22" />
+          </g>
+
+          <!-- rounded melted tip where the wick sits -->
+          <ellipse cx="200" cy="251" rx="10" ry="3.6" fill="url(#waxTop)" />
+          <ellipse cx="200" cy="250" rx="6.5" ry="2.3" fill="#c7b391" opacity="0.6" />
+          <!-- wick -->
+          <path id="wick" d="M200 250 q-2 -8 0 -16" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round" fill="none" />
+          <!-- glowing wick tip when lit -->
+          <circle id="wickGlow" cx="200" cy="234" r="3" fill="#ffca63" opacity="0" />
+        </g>
+
+        <!-- ===== Candle holder (front wall — wraps over the candle base) ===== -->
+        <g id="holderFront">
+          <path d="M177 456 Q200 464 223 456 L219 478 Q200 484 181 478 Z" fill="url(#holderGrad)" />
+          <!-- rim + vertical sheen -->
+          <path d="M181 456 Q200 462 219 456" fill="none" stroke="#f6e7bf" stroke-width="1.6" stroke-linecap="round" opacity="0.55" />
+          <path d="M190 459 L189 476" stroke="#f6e7bf" stroke-width="2.2" stroke-linecap="round" opacity="0.45" />
+        </g>
+
+        <!-- night veil: keeps candle + holder opaque but darkened until the wick catches -->
+        <g id="nightVeil" fill="#0c0906">
+          <path d="M190 251 C188 292 189 330 186 372 C184 398 180 424 182 452 C182 463 189 471 200 472 C211 471 218 463 218 452 C220 424 214 398 214 372 C211 330 212 292 210 251 C207 245 193 245 190 251 Z" />
+          <ellipse cx="200" cy="493" rx="37" ry="7.5" />
+          <path d="M186 480 Q200 486 214 480 Q212 489 200 490 Q188 489 186 480 Z" />
+          <path d="M177 456 Q200 449 223 456 L219 478 Q200 484 181 478 Z" />
+        </g>
+
+        <!-- ===== Candle flame (grows on ignition) ===== -->
+        <g id="candleFlame" transform="translate(200 234) scale(0)">
+          <g class="flame-anim">
+            <path class="flame-glow"  d="M0 2 C-16 -6 -21 -28 -13 -50 C-8 -66 -3 -80 0 -98 C3 -80 8 -66 13 -50 C21 -28 16 -6 0 2 Z" fill="#ff8a2a" filter="url(#softGlow)" opacity="0.5" />
+            <path class="flame-outer" d="M0 0 C-13 -7 -17 -27 -10 -48 C-6 -63 -2 -74 0 -90 C2 -74 6 -63 10 -48 C17 -27 13 -7 0 0 Z" fill="url(#flameOuter)" filter="url(#flameWaver)" />
+            <path class="flame-mid"   d="M0 -3 C-9 -9 -11 -27 -6 -43 C-3 -55 0 -62 0 -72 C0 -62 3 -55 6 -43 C11 -27 9 -9 0 -3 Z" fill="url(#flameMid)" filter="url(#flameWaver)" />
+            <path class="flame-core"  d="M0 -6 C-5 -12 -6 -25 -3 -37 C-1 -46 0 -51 0 -58 C0 -51 1 -46 3 -37 C6 -25 5 -12 0 -6 Z" fill="url(#flameCore)" />
+            <ellipse class="flame-base" cx="0" cy="-6" rx="6" ry="11" fill="url(#flameBase)" />
+            <ellipse class="flame-hot"  cx="0" cy="-16" rx="2.6" ry="7" fill="#fffdf3" opacity="0.92" />
+          </g>
+        </g>
+
+        <!-- ===== Match (starts lying near the striker) ===== -->
+        <g id="match" transform="translate(100 398) rotate(-8)">
+          <!-- stick -->
+          <rect x="-2.5" y="0" width="5" height="150" rx="2.5" fill="url(#stickGrad)" />
+          <!-- charred tip appears after strike -->
+          <rect id="matchChar" x="-3" y="-2" width="6" height="10" rx="3" fill="#241109" opacity="0" />
+          <!-- head -->
+          <ellipse id="matchHead" cx="0" cy="0" rx="6" ry="10" fill="#8f2417" />
+          <ellipse cx="-1.6" cy="-3" rx="2" ry="3.4" fill="#c0492f" opacity="0.8" />
+
+          <!-- match flame (ignites on strike) -->
+          <g id="matchFlame" transform="translate(0 -4) scale(0)">
+            <g class="flame-anim">
+              <path class="flame-glow"  d="M0 1 C-11 -5 -15 -20 -9 -35 C-5 -46 -2 -55 0 -66 C2 -55 5 -46 9 -35 C15 -20 11 -5 0 1 Z" fill="#ff8a2a" filter="url(#softGlow)" opacity="0.5" />
+              <path class="flame-outer" d="M0 0 C-9 -5 -12 -18 -7 -32 C-4 -42 -2 -49 0 -60 C2 -49 4 -42 7 -32 C12 -18 9 -5 0 0 Z" fill="url(#flameOuter)" filter="url(#flameWaver)" />
+              <path class="flame-mid"   d="M0 -2 C-6 -6 -8 -18 -4 -29 C-2 -37 0 -42 0 -49 C0 -42 2 -37 4 -29 C8 -18 6 -6 0 -2 Z" fill="url(#flameMid)" filter="url(#flameWaver)" />
+              <path class="flame-core"  d="M0 -4 C-3 -8 -4 -16 -2 -24 C-1 -30 0 -33 0 -39 C0 -33 1 -30 2 -24 C4 -16 3 -8 0 -4 Z" fill="url(#flameCore)" />
+              <ellipse class="flame-base" cx="0" cy="-4" rx="4" ry="7" fill="url(#flameBase)" />
+              <ellipse class="flame-hot"  cx="0" cy="-11" rx="1.8" ry="4.6" fill="#fffdf3" opacity="0.9" />
+            </g>
+          </g>
+        </g>
+
+        <!-- spark particles container (populated by JS) -->
+        <g id="sparks"></g>
+      </svg>
+    </div>
+
+    <div class="stage__darkness" id="darkness"></div>
+  </div>
+
+  <!-- brand title emerging from the dark -->
+  <div class="hero-title" id="heroTitle">
+    <span class="hero-title__logo" id="heroLogo" aria-hidden="true"></span>
+    <p class="eyebrow">Handgjorda ljus · sedan hjärtat</p>
+    <h1><span class="word">Hildings</span> <span class="word">Hantverk</span></h1>
+    <p class="subtitle">Doppade för hand. Tända med omsorg.</p>
+  </div>
+
+  <!-- intro controls -->
+  <div class="intro-ui" id="introUi">
+    <button class="match-hit" id="matchHit" aria-label="Tänd tändstickan"></button>
+    <div class="strike-hint" id="strikeHint">Klicka för att tända<span class="pulse">✦</span></div>
+    <button class="skip-intro" id="skipIntro">Hoppa över</button>
+  </div>
+
+  <div class="scroll-cue" id="scrollCue">Bläddra<span class="line"></span></div>
+
+  <!-- =========================================================
+       Scrolling story — lit by the candle
+       ========================================================= -->
+  <main class="story" id="story">
+    <div class="story__spacer"></div>
+
+    <section class="story__panel fx-up">
+      <div class="story__inner">
+        <div class="story__text">
+          <p class="eyebrow">Vår hantverk</p>
+          <h2>Varje ljus börjar med en låga</h2>
+          <p>Vi doppar varje ljus för hand, lager på lager, tills formen blir precis rätt. Sexor i sax, kronor, spiror och sockertoppar — inget ljus är det andra likt.</p>
+        </div>
+        <div class="story__media">
+          <img src="images/gallery/ekenasCollection.jpg" alt="Samling av handgjorda ljus" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="story__panel story__panel--right fx-up">
+      <div class="story__inner">
+        <div class="story__text">
+          <p class="eyebrow">Levande ljus</p>
+          <h2>Ett varmare hem, en flämtande låga</h2>
+          <p>Det finns något stilla över ett tänt ljus. Det samlar rummet, mjukar upp kvällen och gör vardagen till en liten fest. Våra ljus brinner rent och länge.</p>
+        </div>
+        <div class="story__media">
+          <img src="images/gallery/vadstenaCollectionMolly.jpg" alt="Ljus i fönster" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="story__panel fx-up">
+      <div class="story__inner">
+        <div class="story__text">
+          <p class="eyebrow">Från vår hand</p>
+          <h2>Traditionellt hantverk, tidlös form</h2>
+          <p>Vi håller kvar vid det gamla sättet att doppa ljus — tålamod, värme och en känsla för detaljer. Resultatet är ljus som är lika vackra släckta som tända.</p>
+        </div>
+        <div class="story__media">
+          <img src="images/gallery/ekenasApples.jpg" alt="Ljus och äpplen" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="story__cta fx-up">
+      <img class="story__cta-logo" src="Logos/variations/lockup-vertical-reversed.svg" alt="Hildings Hantverk logotyp" width="200" height="236" loading="lazy" />
+      <p class="eyebrow">Låt det brinna hos dig</p>
+      <h2>Hitta ditt ljus</h2>
+      <p>Utforska hela katalogen av handgjorda ljus — sexa sax, kronor, spiror, sockertoppar och snöbollar.</p>
+      <p style="margin-top:1.6rem">
+        <a class="btn" href="katalog.html">Se katalogen</a>
+        <a class="btn btn--ghost" href="bilder.html" style="margin-left:0.6rem">Bilder</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       Footer
+       ========================================================= -->
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <p class="muted" style="margin:0">© 2025 Hildings Hantverk</p>
+      <div class="footer-contact">
+        <a href="mailto:hildingshantverk@gmail.com">hildingshantverk@gmail.com</a>
+        <a href="tel:+46701234567">+46 70 123 45 67</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/intro.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

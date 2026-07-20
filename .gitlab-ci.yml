@@ -1,0 +1,19 @@
+# GitLab Pages deployment for a static site (no build step).
+# Copies the site files into the `public/` directory that GitLab Pages serves.
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - mkdir -p public
+    # Copy everything except VCS/CI metadata and the output folder itself.
+    - >
+      find . -maxdepth 1 -mindepth 1
+      ! -name public
+      ! -name '.git'
+      ! -name '.gitlab-ci.yml'
+      -exec cp -r {} public/ \;
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
