@@ -229,6 +229,21 @@
       scrollTrigger: { trigger: "#story", start: "top top", end: "60% top", scrub: true }
     });
 
+    // once the story starts to rise, let the candle object itself settle
+    // slightly into the background — still clearly there, just softened.
+    // The flame + halo (the light) stay outside this group, so the actual
+    // glow keeps its full strength.
+    gsap.to("#candle, #holder, #holderFront", {
+      opacity: 0.72,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#story",
+        start: "top top",
+        end: () => "+=" + Math.round(window.innerHeight * 0.6),
+        scrub: true
+      }
+    });
+
     // the candle is fixed in place on screen, so once the CTA (with its
     // own logo) scrolls up to meet it, fade the candle scene away first —
     // otherwise the two always end up overlapping near the page bottom

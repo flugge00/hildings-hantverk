@@ -383,6 +383,14 @@ p { margin: 0 0 1.1em; }
 .form-feedback h2 { margin-bottom: 0.4rem; }
 .form-feedback p { color: var(--c-cream-dim); margin: 0 auto; max-width: 46ch; }
 .form-feedback .btn { margin-top: 1.6rem; }
+.form-feedback .btn + .btn { margin-left: 0.8rem; }
+
+.form-feedback--pending .form-feedback__icon {
+  background: radial-gradient(circle at 50% 35%, rgba(240,165,138,0.35), rgba(240,165,138,0.08));
+  border-color: #f0a58a;
+  box-shadow: 0 0 40px -10px #f0a58a;
+}
+.form-feedback--pending .form-feedback__icon svg { stroke: #f0a58a; }
 
 .form-status { text-align: center; font-size: 0.9rem; margin: 0.9rem 0 0; min-height: 1.2em; }
 .form-status--error { color: #f0a58a; }

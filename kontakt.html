@@ -103,11 +103,12 @@
         </form>
 
         <div class="form-feedback" id="contact-feedback" role="status" aria-live="polite">
-          <div class="form-feedback__icon" aria-hidden="true">
+          <div class="form-feedback__icon" id="contact-feedback-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <h2>Tack, ditt meddelande är skickat!</h2>
+          <h2 id="contact-feedback-title">Tack, ditt meddelande är skickat!</h2>
           <p id="contact-feedback-text">Vi återkommer så snart vi kan. Tack för att du hörde av dig till Hildings Hantverk.</p>
+          <a class="btn btn--ghost" id="cf-mailto-link" href="#" style="display:none">Öppna e-postappen igen</a>
           <button type="button" class="btn btn--ghost" id="cf-reset">Skicka ett till</button>
         </div>
       </div>
@@ -146,8 +147,13 @@
       const form = document.getElementById("contact-form");
       if (!form) return;
       const feedback = document.getElementById("contact-feedback");
+      const feedbackTitle = document.getElementById("contact-feedback-title");
       const feedbackText = document.getElementById("contact-feedback-text");
+      const feedbackIcon = document.getElementById("contact-feedback-icon");
+      const mailtoLink = document.getElementById("cf-mailto-link");
       const status = document.getElementById("cf-status");
+      const ICON_CHECK = '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      const ICON_MAIL = '<svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z" stroke-linejoin="round"/><path d="M4 7l8 6 8-6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       const submitBtn = document.getElementById("cf-submit");
       const productSel = document.getElementById("cf-product");
       const qtyInput = document.getElementById("cf-qty");
@@ -206,8 +212,18 @@
         el.addEventListener("input", () => clearError(el))
       );
 
-      function showFeedback(text) {
-        if (text) feedbackText.textContent = text;
+      function showFeedback(opts) {
+        const { title, text, pending = false, mailtoHref = "" } = opts;
+        feedbackTitle.textContent = title;
+        feedbackText.textContent = text;
+        feedbackIcon.innerHTML = pending ? ICON_MAIL : ICON_CHECK;
+        feedback.classList.toggle("form-feedback--pending", pending);
+        if (pending && mailtoHref) {
+          mailtoLink.href = mailtoHref;
+          mailtoLink.style.display = "";
+        } else {
+          mailtoLink.style.display = "none";
+        }
         form.style.display = "none";
         feedback.classList.add("is-visible");
         feedback.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -263,7 +279,10 @@
             });
             const out = await res.json();
             if (res.ok && out.success) {
-              showFeedback("Vi återkommer så snart vi kan. Tack för att du hörde av dig till Hildings Hantverk.");
+              showFeedback({
+                title: "Tack, ditt meddelande är skickat!",
+                text: "Vi återkommer så snart vi kan. Tack för att du hörde av dig till Hildings Hantverk."
+              });
             } else {
               throw new Error(out.message || "Sändningen misslyckades.");
             }
@@ -277,18 +296,26 @@
           return;
         }
 
-        /* Fallback (ingen nyckel): öppna besökarens e-postapp med allt ifyllt */
+        /* Fallback (ingen nyckel): öppna besökarens e-postapp med allt ifyllt.
+           OBS: vi kan inte veta om e-postappen faktiskt öppnades eller om
+           meddelandet verkligen skickades, så vi får ALDRIG påstå att det är
+           klart här – bara att ett försök att öppna e-postappen gjordes. */
         const mailto = `mailto:${CONTACT_EMAIL}`
           + `?subject=${encodeURIComponent(subject)}`
           + `&body=${encodeURIComponent(buildBody(data))}`;
         window.location.href = mailto;
-        showFeedback("Din e-postapp öppnas med meddelandet färdigt – tryck på skicka där så når det oss. Öppnades inget? Maila oss på " + CONTACT_EMAIL + ".");
+        showFeedback({
+          title: "Nästan klart – skicka från din e-postapp",
+          text: "Vi försöker öppna din e-postapp med meddelandet ifyllt. Tryck på Skicka där för att det ska nå oss – meddelandet är INTE skickat förrän du gjort det. Öppnades ingen e-postapp? Klicka på knappen nedan eller maila oss direkt på " + CONTACT_EMAIL + ".",
+          pending: true,
+          mailtoHref: mailto
+        });
       });
 
       /* "Skicka ett till" — reset form */
       document.getElementById("cf-reset").addEventListener("click", () => {
         form.reset();
-        feedback.classList.remove("is-visible");
+        feedback.classList.remove("is-visible", "form-feedback--pending");
         form.style.display = "";
         form.querySelectorAll('[aria-invalid="true"]').forEach(clearError);
         status.textContent = "";
